@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+  <main id="main" class="o-grid">
+    <div class="o-grid__row">
+          {% if is_granted('ROLE_ADMIN') %}
+          <table>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Statut</th>
+                <th>Supprimer un membre</th>
+                </tr>
+                {% for user in users %}
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.roles }}</td>
+                  <td><a href='list/users/{{ user.id }}' onclick='return(confirm(`Êtes-vous sûr de vouloir supprimer {{ user.username }} ?`))'>Supprimer ce membre</a></td>
+                </tr>
+                {%  endfor %}
+            </table>
+          {% endif %}
+      </div>
+  </main>
+{% endblock %}

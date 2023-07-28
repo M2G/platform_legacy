@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+  <main id="scroll">
+  {#
+Parce que nous l'avons configuré avant, le service sécurité de Silex nous
+donne cette fonction de base dans tous les templates twig.
+#}
+<nav class="c-navigation__mobile">
+   <a class="show-sidebar" title="Toggle sidebar">
+   <span class="bar-1"></span>
+   <span class="bar-2"></span>
+   <span class="bar-3"></span>
+   </a>
+   <div class="c-sidebar__primary">
+      <aside class="c-aside c-aside_nav__menu">
+         <div class="c-sidebar__container">
+            <ul class="u-inline-list__mobile">
+               {% if is_granted('ROLE_USER') %}
+               <li>
+                  <a class="list" thref="{{ path('login') }}">
+                  Bienvenue {{ global.user }} !
+                  </a>
+               </li>
+               <li>
+                  {# Ce chemin 'logout' est généré depuis app/config/security.php #}
+                  <a class="list" href="{{ path('logout') }}">
+                  Déconnexion
+                  </a>
+               </li>
+               {% else %}
+               <li>
+                  <a class="list" href="{{ path('login') }}">
+                  Connexion
+                  </a>
+               </li>
+               <li>
+                  <a class="list" href="{{ path('register') }}">
+                  Inscription
+                  </a>
+               </li>
+               {% endif %}
+               {% if is_granted('ROLE_ADMIN') %}
+               <li>
+                  <a class="list" href="{{ path('list') }}">
+                  Liste des utilisateurs
+                  </a>
+               </li>
+               {% endif %}
+               {% if is_granted('ROLE_USER') %}
+               <li>
+                  <a class="list" href="{{ path('edit') }}">
+                  Modification du compte
+                  </a>
+               </li>
+               {% endif %}
+            </ul>
+         </div>
+      </aside>
+   </div>
+</nav>
+<nav class="c-navigation">
+   <ul class="u-inline-list">
+      {% if is_granted('ROLE_USER') %}
+      <li>
+         <a class="list" thref="{{ path('login') }}">
+         Bienvenue {{ global.user }} !
+         </a>
+      </li>
+      <li>
+         {# Ce chemin 'logout' est généré depuis app/config/security.php #}
+         <a class="list" href="{{ path('logout') }}">
+         Déconnexion
+         </a>
+      </li>
+      {% else %}
+      <li>
+         <a class="list" href="{{ path('login') }}">
+         Connexion
+         </a>
+      </li>
+      <li>
+         <a class="list" href="{{ path('register') }}">
+         Inscription
+         </a>
+      </li>
+      {% endif %}
+      {% if is_granted('ROLE_ADMIN') %}
+      <li>
+         <a class="list" href="{{ path('list') }}">
+         Liste des utilisateurs
+         </a>
+      </li>
+      {% endif %}
+      {% if is_granted('ROLE_USER') %}
+      <li>
+         <a class="list" href="{{ path('edit') }}">
+         Modification du compte
+         </a>
+      </li>
+      {% endif %}
+   </ul>
+</nav>
+{##}
+<div class="o-grid" id="main">
+   <!-- ngCloak est une directive AngularJS qui masque un élément jusqu'à ce que l'application soit correctement chargée. -->
+   <div class="o-grid__row" ng-controller="searchCtrl" ng-cloak>
+      <form ng-submit="onSubmit()">
+         <div class="form-inline">
+            <div class="form-group">
+               <input type="text" class="form-control" ng-model="searchTerm" placeholder="Rechercher un nom d'artiste, de groupe, ou de genre...">
+            </div>
+            <div class="form-group">
+               <input class="form-control" type="search" ng-model="Filter" placeholder="Filter by AngularJS">
+            </div>
+            <div class="form-group">
+               <button class="btn" type="submit">Rechercher</button>
+            </div>
+         </div>
+      </form>
+      <!-- Il s’agit d’une structure conditionnelle de type if qui s’utilise directement dans le template.
+         Si l’expression qu’elle évalue est true, l’élément s’affiche, sinon il n’affiche pas. -->
+      <div id="search-results" ng-if="searchResults.length > 0">
+         <div class="o-padding--top" ng-click="playSong(track)" ng-repeat="track in searchResults | filter:Filter">
+            {% verbatim %}
+            <div class="c-results">
+               <img class="artwork" ng-src="{{ track.artwork_url }}">
+               <!-- src="{{ track.artwork_url }} --> <!-- A RESOUDRE -->
+               <p class="text-center">{{ track.title }}</p>
+            </div>
+            <div class="c-playlist__tool o-padding--top">
+               <button type="button" class="btn o-margin--right" ng-click="addSong()" title="Ajouter">Ajouter</button>
+            </div>
+            {% endverbatim %}
+         </div>
+         <!-- end ng-repeat -->
+      </div>
+      <!-- end c-results -->
+   </div>
+   <!-- end ng-conroller -->
+   {% include 'partials/equaliser.html.twig' %}
+   {% include 'player.html.twig' %}
+</div>
+<!-- end id main -->
+<a href="#scroll">
+   <svg class="lnr lnr-chevron-up">
+      <use xlink:href="#lnr-chevron-up"></use>
+   </svg>
+</a>
+<main>
+{# Décommente ce bloc pour voir plein de trucs interessants ! {#
+{##}
+    {# {{ dump(global.session) }}
+{{ dump(global.user) }}
+{{ dump(global.debug) }}
+{{ dump(songs) }} #}
+    {##}
+    {# On vérifie s'il y a des messages flash à montrer # } {% for alert in app.session.flashbag.get('connexion') %}
+<div class="error-message">
+   <div class="alert"> <strong>{{ alert }}</strong> </div>
+</div>
+{% endfor %} {##} {% endblock %}

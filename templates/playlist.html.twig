@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+<main class="o-grid" id="main">
+   <div class="o-grid__row">
+      <div id="playlist" class="c-playlist__Ctrl" ng-controller="playlistCtrl">
+         <!-- boucle ici avec silex et twig sur les chansons du playlist -->
+         {% for song in songs %} <!-- boucle twig qui récupère les musiques depuis la database -->
+         <div class="c-results" data-audio="{{ song.url }}"> <!-- l'url soundcloud de la musique -->
+            <img class="artwork" src="{{ song.artwork }}"> <!-- l'artwork (img) de la musique -->
+            <p class="text-center">{{ song.title }}</p> <!-- le titre de la musique -->
+            <a class="o-margin--all" href="playlist/{{ song.id }}"><svg class="lnr lnr-cross"><use xlink:href="#lnr-cross"></use></svg></a> <!-- supprime sur la database {id} du songs -->
+         </div>
+         {%  endfor %}
+         <a class="btn" href="playlist/0">Reset playlist</a> <!-- reset tout la playlist de l'user qui est connecté -->
+
+      </div>
+       {% include 'partials/equaliser.html.twig' %}
+       {% include 'player.html.twig' %}
+   </div>
+</main>
+<script id="playlist-data" type="application/json">
+   {{ jsonString|raw }}
+</script>
+{% endblock %}

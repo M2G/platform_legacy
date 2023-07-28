@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+  <main id="main" class="o-zone">
+    <div class="o-grid">
+      <form action="#" method="post">
+        {# avec le Twig Bridge, nous avons cette fonction pour générer les forms #}
+        {{ form_widget(form) }}
+        <div class="form-group">
+          <input class="btn o-margin--top submit" type="submit" name="submit"/>
+        </div>
+      </form>
+    </div>
+  </main>
+{% endblock %}

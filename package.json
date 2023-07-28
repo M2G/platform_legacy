@@ -1,0 +1,33 @@
+{
+  "name": "www.silex.local",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch-js": "watchify src/js/main.js -o public/js/main.js -v",
+    "watch-css": "node-sass -w public/css/main.scss public/css/main.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ld0rman/silex.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ld0rman/silex/issues"
+  },
+  "homepage": "https://github.com/ld0rman/silex#readme",
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "watchify": "^3.7.0",
+     "node-sass": "^4.1.1"
+  },
+  "dependencies": {
+    "angular": "^1.6.0",
+    "domready": "^1.0.8",
+    "eventablejs": "^1.0.5",
+    "plyr": "^2.0.11",
+    "soundcloud": "^3.1.2"
+  }
+}

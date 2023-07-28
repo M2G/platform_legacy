@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+  <main class="o-zone">
+    <div id="main" class="o-grid">
+      <div class="o-grid__row">
+        <form name="form" method="post" action="#">
+          {% if is_granted('ROLE_USER') %}
+            {% for user in users %}
+              <div class="form-group">
+                <input class="form-control" type="text" name="id" value="{{ user.id }}" disabled>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="username" value="{{ user.username }}">
+              </div>
+          <div class="form-group">
+            <input class="btn o-margin--top submit" name="submit" type="submit">
+          </div>
+          <div class="form-group">
+            <a href="list/users/{{ user.id }}"class="btn o-margin--top delete">Supprimer votre compte</a>
+          </div>
+          {% endfor %}
+        {% endif %}
+        </form>
+      </div>
+    </div>
+  </main>
+{% endblock %}

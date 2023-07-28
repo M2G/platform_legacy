@@ -1,0 +1,28 @@
+<div class="c-control">
+  <div class="progress">
+    <div id="progress-bar" class="progress-bar" data-role="progressbar" style="width: 0%"></div>
+  </div>
+  <div class="c-play_control">
+      <button id="prev" class="c-play_control__previous" title="Passer au titre précédent" ng-click="prev()">
+        <svg class="lnr lnr-chevron-left">
+          <use xlink:href="#lnr-chevron-left"></use>
+        </svg>
+      </button>
+      <button id="next" class="c-play_control__next" title="Passer au titre suivant" ng-click="next()">
+        <svg class="lnr lnr-chevron-right">
+          <use xlink:href="#lnr-chevron-right"></use>
+        </svg>
+      </button>
+      <button id="loop" title="Répéter le titre">
+        <svg class="lnr lnr-sync">
+          <use xlink:href="#lnr-sync"></use>
+        </svg>
+      </button>
+      <button title="Egaliseur">
+        <svg class="egaliseur lnr lnr-chart-bars">
+          <use xlink:href="#lnr-chart-bars"></use>
+        </svg>
+      </button>
+  </div>
+  <div ng-controller="playerCtrl" class="c-player" id="player"></div>
+</div>
